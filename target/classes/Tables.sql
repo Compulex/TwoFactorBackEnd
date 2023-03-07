@@ -1,4 +1,4 @@
-drop table UserData;
+drop table if exists UserData;
 
 create table UserData(
     id int primary key auto_increment,

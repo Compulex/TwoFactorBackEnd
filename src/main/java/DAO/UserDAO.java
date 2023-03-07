@@ -1,10 +1,15 @@
 package DAO;
 
+import Model.User;
 import Util.ConnectionSingleton;
 
 import java.sql.*;
 
 public class UserDAO {
+
+    public UserDAO(){
+
+    }//constructor
 
     public User insertUser(User user){
         Connection connection = ConnectionSingleton.getConnection();
@@ -33,5 +38,27 @@ public class UserDAO {
         return null;
     }//insertUser
 
+    public User getUserById(int uid){
+        Connection connection = ConnectionSingleton.getConnection();
+        try{
+            //select sql statement
+            String sql = "select * from UserData where id = ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
 
+            //prepared Statement int for id
+            ps.setInt(1, uid);
+
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                return new User(rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("code"));
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }//getUserById
 }
