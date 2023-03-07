@@ -4,3 +4,43 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "--h2 is 
 --first, drop your tables (to reset your database for testing)
 --then create your tables
 afdbfdb [42001-214]
+2023-03-07 12:22:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "--h2 is typically used to setup a test database, not a prod database.\000d\000a--first, drop your tables (to reset your database for testing)\000d\000a--then create your tables\000d\000adrop table [*]User"; expected "identifier"; SQL statement:
+--h2 is typically used to setup a test database, not a prod database.
+--first, drop your tables (to reset your database for testing)
+--then create your tables
+drop table User [42001-214]
+2023-03-07 12:25:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "drop table [*]User"; expected "identifier"; SQL statement:
+drop table User [42001-214]
+2023-03-07 12:30:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERDATA" not found; SQL statement:
+drop table UserData [42102-214]
+2023-03-07 12:33:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "--drop table User;\000d\000a\000d\000acreate table [*]User(\000d\000a    id int primary key,\000d\000a    username varchar(255),\000d\000a    password varchar(255),\000d\000a    code varchar(255)\000d\000a)"; expected "identifier"; SQL statement:
+--drop table User;
+
+create table User(
+    id int primary key,
+    username varchar(255),
+    password varchar(255),
+    code varchar(255)
+) [42001-214]
+2023-03-07 12:34:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "--drop table User;\000d\000a\000d\000acreate table [*]*User(\000d\000a    id int primary key,\000d\000a    username varchar(255),\000d\000a    password varchar(255),\000d\000a    code varchar(255)\000d\000a)"; expected "identifier"; SQL statement:
+--drop table User;
+
+create table *User(
+    id int primary key,
+    username varchar(255),
+    password varchar(255),
+    code varchar(255)
+) [42001-214]
+2023-03-07 12:35:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERDATA" already exists; SQL statement:
+--drop table UserData;
+
+create table UserData(
+    id int primary key,
+    username varchar(255),
+    password varchar(255), [42101-214]
