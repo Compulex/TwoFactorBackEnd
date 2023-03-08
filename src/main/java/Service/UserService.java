@@ -16,18 +16,20 @@ public class UserService {
 
     public User addUser(User user){
         //check for existing user
-        /*User existingUser = userDAO.get;
+        User existingUser = userDAO.getUserByUsername(user.getUsername());
 
         //if username is not found
         if(existingUser == null)
             return userDAO.insertUser(user);
         else
-            return null;*/
-
-        return userDAO.insertUser(user);
+            return null;
     }
 
     public User getUserById(int uid){
         return userDAO.getUserById(uid);
     }//getUserById
+
+    public int getUserCount(){
+        return userDAO.getUserCount();
+    }
 }

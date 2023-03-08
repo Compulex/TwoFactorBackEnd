@@ -61,4 +61,47 @@ public class UserDAO {
         }
         return null;
     }//getUserById
+
+    public User getUserByUsername(String uname){
+        Connection connection = ConnectionSingleton.getConnection();
+        try{
+            //sql statement get username
+            String sql = "select * from UserData where username = ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            //ps set string
+            ps.setString(1, uname);
+
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                return new User(rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("code"));
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public int getUserCount(){
+        Connection connection = ConnectionSingleton.getConnection();
+        try{
+            //select sql statement
+            String sql = "select COUNT(*) from UserData;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                return rs.getInt(1);
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }//getUserCount
 }

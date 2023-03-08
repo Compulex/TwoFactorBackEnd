@@ -50,6 +50,13 @@ public class TwoFactorController {
 
     private void getUserByIdHandler(Context ctx, int uid){
         User user = userService.getUserById(uid);
-        ctx.json(user);
+        if(user == null)
+            ctx.status(400);
+        else
+            ctx.json(user);
     }//getUserByIdHandler
+
+    public int getCount(){
+        return userService.getUserCount();
+    }
 }
