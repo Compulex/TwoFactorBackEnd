@@ -1,4 +1,5 @@
 package Model;
+import java.util.Random;
 
 public class User {
     public int id;
@@ -49,6 +50,8 @@ public class User {
 
     public void setCode(int code)
     {
+        Random rand = new Random();
+        code = rand.nextInt(999999);
         this.code = code;
     }
 
