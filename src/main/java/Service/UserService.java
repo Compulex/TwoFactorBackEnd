@@ -22,8 +22,12 @@ public class UserService {
         if(existingUser == null)
             return userDAO.insertUser(user);
         else
-            rerturn null;*/
+            return null;*/
 
         return userDAO.insertUser(user);
     }
+
+    public User getUserById(int uid){
+        return userDAO.getUserById(uid);
+    }//getUserById
 }

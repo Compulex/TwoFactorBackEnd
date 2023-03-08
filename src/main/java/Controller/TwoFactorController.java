@@ -24,6 +24,11 @@ public class TwoFactorController {
     public Javalin startAPI() {
         Javalin app = Javalin.create();
         app.post("/register", this::postUserHandler);
+        //get user
+        app.get("/users/{user_id}", ctx ->{
+            String user_id = ctx.pathParam("user_id");
+            getUserByIdHandler(ctx, Integer.parseInt(user_id));
+        });
         return app;
     }
 
@@ -42,4 +47,9 @@ public class TwoFactorController {
             ctx.status(400);
         }
     }
+
+    private void getUserByIdHandler(Context ctx, int uid){
+        User user = userService.getUserById(uid);
+        ctx.json(user);
+    }//getUserByIdHandler
 }
