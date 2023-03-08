@@ -18,6 +18,7 @@ public class TwoFactorController {
     public TwoFactorController()
     {
         this.userService = new UserService();
+        //Code Service
     }
 
     public Javalin startAPI() {
@@ -31,7 +32,7 @@ public class TwoFactorController {
         User user = om.readValue(ctx.body(), User.class);
         User insertedUser = userService.addUser(user);
 
-        if (user.username == null)
+        if (user.username != null)
         {
             ctx.json(om.writeValueAsString(insertedUser));
             ctx.status(200);
@@ -41,5 +42,4 @@ public class TwoFactorController {
             ctx.status(400);
         }
     }
-
 }
