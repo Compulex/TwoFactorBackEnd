@@ -15,13 +15,12 @@ public class User {
 
     }
 
-    public User(int id, String username, String password)
+    public User(int id, String username, String password, int code)
     {
-        Random rand = new Random();
-        this.code = rand.nextInt(999999);
         this.id = id;
         this.username = username;
         this.password = password;
+        this.code = code;
     }
 
     public int getId()
@@ -52,8 +51,7 @@ public class User {
     public void setCode()
     {
         Random rand = new Random();
-        code = rand.nextInt(999999);
-        this.code = code;
+        this.code = rand.nextInt(999999);
     }
 
     public String getPassword()

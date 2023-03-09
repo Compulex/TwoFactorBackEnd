@@ -21,7 +21,9 @@ public class UserDAO {
             //setting prepared Statements Strings
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
-            ps.setInt(3,user.getCode());
+            //code generated
+            user.setCode();
+            ps.setInt(3, user.getCode());
 
             ps.executeUpdate();
 
