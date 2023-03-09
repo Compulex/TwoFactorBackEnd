@@ -4,12 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import Model.User;
-import Model.Code;
 import Service.UserService;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
-import java.util.List;
 
 public class TwoFactorController {
     UserService userService;
@@ -24,6 +21,13 @@ public class TwoFactorController {
     public Javalin startAPI() {
         Javalin app = Javalin.create();
         app.post("/register", this::postUserHandler);
+
+        app.get("/users/{user_id}/{code}", ctx ->{
+            String user_id = ctx.pathParam("user_id");
+            int user_code = Integer.parseInt(ctx.pathParam("code"));
+            getVerifiedUser(ctx, Integer.parseInt(user_id), user_code);
+        });
+
         //get user
         app.get("/users/{user_id}", ctx ->{
             String user_id = ctx.pathParam("user_id");
@@ -44,6 +48,23 @@ public class TwoFactorController {
         }
 
         else{
+            ctx.status(400);
+        }
+    }
+
+    private void getVerifiedUser(Context ctx, int id, int code)throws JsonProcessingException {
+        ObjectMapper om = new ObjectMapper();
+        //User user = om.readValue(ctx.body(), User.class);
+        User insertedUser = userService.getUserById(id);
+
+        if (code == insertedUser.code)
+        {
+            ctx.json(om.writeValueAsString(true));
+            ctx.status(200);
+        }
+
+        else{
+            ctx.json(om.writeValueAsString(false));
             ctx.status(400);
         }
     }
