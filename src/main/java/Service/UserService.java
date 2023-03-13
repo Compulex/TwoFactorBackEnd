@@ -3,6 +3,8 @@ package Service;
 import DAO.UserDAO;
 import Model.User;
 
+import java.util.Objects;
+
 public class UserService {
     private UserDAO userDAO;
 
@@ -19,8 +21,12 @@ public class UserService {
         User existingUser = userDAO.getUserByUsername(user.getUsername());
 
         //if username is not found
-        if(existingUser == null)
-            return userDAO.insertUser(user);
+        if(existingUser == null){
+            if(user.password.length() < 5 || Objects.equals(user.username, ""))
+                return null;
+            else
+                return userDAO.insertUser(user);
+        }
         else
             return null;
     }
